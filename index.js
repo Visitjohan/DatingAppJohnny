@@ -3,7 +3,6 @@
 const mockData = require('./mockData.js').data;
 const prompt = require('prompt-sync')();
 
-//const profile = {};
 const answers = [];
 
 const questions = [
@@ -30,8 +29,6 @@ const answerPrompt = [
 
 console.log('\x1b[35m' + "Welcome to Johnny's dating app!" + '\x1b[0m');
 
-
-
 let i = 0;
 
 // while loop; stops when all questions are answered
@@ -55,8 +52,7 @@ while (answers.length < questions.length) {
       }
         else {
           check = false;
-        }
-      
+        }      
       }
   
     case 2:
@@ -74,8 +70,6 @@ while (answers.length < questions.length) {
         else {
           check = false;
         }
-
-
       }
       case 3:
       while (check === true) {
@@ -104,8 +98,7 @@ while (answers.length < questions.length) {
            }
       }
     case 5:
-      while (check === true) {
-        
+      while (check === true) {       
         answer = prompt(answerPrompt[i]).toUpperCase();
         if (answer === "") {
           console.log('\x1b[31m' + "not enterd!!!" + '\x1b[0m');
@@ -121,7 +114,6 @@ while (answers.length < questions.length) {
       case 6:
       while (check === true) {
         answer= Number(prompt(answerPrompt[i]));
-
         if (answer === "") {
              console.log('\x1b[31m' + "No age is enterd!" + '\x1b[0m');
         }else if (answer < 18) {
@@ -156,22 +148,13 @@ while (answers.length < questions.length) {
              }
       }
     default:
-
   }
-
-
   answers.push(answer);
     i++;
-  
   }
-
 console.log(`\n\x1b[35mYour profile:  \x1b[0m\nI am \u001b[36m${answers[0]} ${answers[1]}\x1b[0m and I am \u001b[36m${answers[2]}\x1b[0m years old. I identify myself as a \u001b[36m${answers[3]}\x1b[0m and am interested in \u001b[36m${answers[4]}\x1b[0m. My current location is: \u001b[36m${answers[5]}\x1b[0m. And I am looking for a parter who is between \u001b[36m${answers[6]}\x1b[0m and \u001b[36m${answers[7]}\x1b[0m years old.\n`);
 
 console.log(`\x1b[35mThe amount of people using the Winc Winc app (at this moment): ${mockData.length}. Based on your profile we have matched you with the following people:\x1b[0m`);
-
-
-
-
 let counter = 0;
 
 
@@ -180,11 +163,7 @@ for (let i = 0; i < mockData.length; i++) {
     if (mockData[i].age >= answers[6] && mockData[i].age <= answers[7]) {
       if (answers[5] == mockData[i].location) {
         if ((answers[4] == mockData[i].gender) || (answers[4] == "B") && (["M", "F"].includes(mockData[i].gender))) {
-          if((answers[3]==mockData[i].gender_interest)|| (answers[3] == "B") && (["M", "F"].includes(mockData[i].gender_interest))){
-          
-        
-          
-            
+          if((answers[3]==mockData[i].gender_interest)|| (answers[3] == "B") && (["M", "F"].includes(mockData[i].gender_interest))){       
             console.log(`Hi! I am \u001b[36m${mockData[i].first_name} ${mockData[i].last_name}\x1b[0m and I am \u001b[36m${mockData[i].age}\x1b[0m years old. I identify myself as a \u001b[36m${mockData[i].gender}\x1b[0m and am interested in \u001b[36m${mockData[i].gender_interest}\x1b[0m. My current location is: \u001b[36m${mockData[i].location}\x1b[0m. And I am looking for a parter who is between \u001b[36m${mockData[i].min_age_interest}\x1b[0m and \u001b[36m${mockData[i].max_age_interest}\x1b[0m years old.\n`);
             counter++;
         
@@ -194,5 +173,4 @@ for (let i = 0; i < mockData.length; i++) {
       }
     }
   }
-
 console.log(`In total you have \x1b[35m${counter}\x1b[0m matche(s)!`);
