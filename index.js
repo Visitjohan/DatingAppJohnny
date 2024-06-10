@@ -1,242 +1,198 @@
-"use strict";
+'use strict';
 
-const mockData = require("./mockData.js").data;
-const prompt = require("prompt-sync")();
+const mockData = require('./mockData.js').data;
+const prompt = require('prompt-sync')();
 
-// Your code here
-//const firstNameAnsewer= prompt("answar only with a-Z max 10 characters:");
-//const firstNameQuestion= prompt("What is your firstname?");
-//const lastNameQuestion = prompt("What is your lastname?");
-//const age = prompt("How old are you?");
-//const minIntressedAgeQuestion = (prompt("What is the minimum age you are interested in?"));
-//const maxIntressedAgeQuestion = (prompt("What is the maximum age you are interested in?"));
-//const genderQuestion = (prompt("What gender are youinterested in?"));
-//const locationQuestion = prompt("What city are you living in?");
+//const profile = {};
+const answers = [];
 
-// welcome text dating app
-console.log("\x1b[35m" + "Welcome to Johnny's dating app!" + "\x1b[0m");
-console.log("\x1b[35m" + 'To procide press "enter"' + "\x1b[0m");
+const questions = [
+  'What is your first name?',
+  'What is your last name?',
+  "How old are you?",
+  "What is your gender? (M, F, X)",
+  "What gender are youinterested in? (M, F, X, B)",
+  "What is your location? (rural/city)",
+  "What is the minimum age you are interested in?",
+  "What is the maximum age you are interested in?",
+];
 
-let ageMinimumAnsewer = 0;
-let ageMaximumAnsewer = 0;
-let firstNameAnsewer = 0;
-let lastNameAnsewer = 0;
-let ageAnsewer = 0;
-let genderAnswer = 0;
-let genderIntrestAnswer = 0;
-let locationAnsewer = 0;
-let locationAnsewerText;
+const answerPrompt = [
+  '\u001b[36m' + "answar only with a-Z minimum 3 and maximum 10 characters:" + '\u001b[0m',
+  '\u001b[36m' + "answar only with a-Z minimum 3 and maximum 10 characters:" + '\u001b[0m',
+  '\u001b[36m' + "answar only from 18 till 99:" + '\u001b[0m',
+  '\u001b[36m' + 'answar "M" for male, "F" for female and "X" for both:' + '\u001b[0m',
+  '\u001b[36m' + 'answar "M" for male, "F" for female and "X" for both:' + '\u001b[0m',
+  '\u001b[36m' + 'answar "R" for rural or "C" for City:' + '\u001b[0m',
+  '\u001b[36m' + "answar only from 18 till 99:" + '\u001b[0m',
+  '\u001b[36m' + `answar only from ${answers[6]} till 99:` + '\u001b[0m',
+];
 
-const check = true;
-while (check === true) {
-  console.log("What is your firstname?");
-  firstNameAnsewer = prompt(
-    "\u001b[36m" +
-      "answar only with a-Z minimum 3 and maximum 10 characters:" +
-      "\u001b[0m"
-  );
-  if (firstNameAnsewer === "") {
-    console.log("No name enterd!");
-  } else if (firstNameAnsewer.length < 3) {
-    console.log("name is to short!");
-  } else if (firstNameAnsewer.length > 10) {
-    console.log("name is to lang!");
-  } else if (!/^[a-zA-Z ]+$/.test(firstNameAnsewer)) {
-    console.log("name can only contain a-z");
-  } else {
-    break;
+console.log('\x1b[35m' + "Welcome to Johnny's dating app!" + '\x1b[0m');
+
+
+
+let i = 0;
+
+// while loop; stops when all questions are answered
+while (answers.length < questions.length) {  
+  let answer="";
+  console.log(questions[i])
+  let check = true;
+  switch(i) {
+    case 0:
+    case 1: 
+      while (check === true) {
+      answer=prompt(answerPrompt[i]);
+      if (answer === "") {
+        console.log("No name enterd!");
+      } else if (answer.length < 3) {
+        console.log("name is to short!");
+      } else if (answer.length > 10) {
+        console.log("name is to lang!");
+      } else if (!/^[a-zA-Z ]+$/.test(answer)) {
+        console.log("name can only contain a-z");
+      }
+        else {
+          check = false;
+        }
+      
+      }
+  
+    case 2:
+      while (check === true) {
+        answer=Number(prompt(answerPrompt[i]));
+        if (answer === "") {
+          console.log('\x1b[31m' + "No age is enterd!" + '\x1b[0m');
+        } else if (answer < 18) {
+           console.log('\x1b[31m' + "you are to jong to pertisapate, please visit use when you are 18 ore older" + '\x1b[0m');
+        } else if (answer > 99) {
+           console.log('\x1b[31m' + "you are to old to pertisapate" + '\x1b[0m');
+        }  else if (!/^\d+$/.test(answer)) {
+            console.log('\x1b[31m' + "you can only alare between 18 and 99" + '\x1b[0m');
+          }
+        else {
+          check = false;
+        }
+
+
+      }
+      case 3:
+      while (check === true) {
+        answer= prompt(answerPrompt[i]).toUpperCase();
+
+        if (answer === "") {
+             console.log('\x1b[31m' + "No gender is enterd!" + '\x1b[0m');
+           } else if (answer === "M" ||answer === "F"|| answer === "X") {
+           check = false;
+           }
+         else {
+             console.log('\x1b[31m' + 'you can only ansar "M", "F" or "X"' + '\x1b[0m');
+           }
+      }
+      case 4:
+      while (check === true) {
+        answer= prompt('\u001b[36m' + 'answar "M" for male, "F" for female and "X" for both:' + '\u001b[0m').toUpperCase();
+
+        if (answer === "") {
+             console.log('\x1b[31m' + "No gender is enterd!" + '\x1b[0m');
+           } else if (answer === "M" ||answer === "F"|| answer === "X"||answer === "B") {
+           check = false;
+           }
+         else {
+             console.log('\x1b[31m' + 'you can only ansar "M", "F","X" or "B"' + '\x1b[0m');
+           }
+      }
+    case 5:
+      while (check === true) {
+        
+        answer = prompt(answerPrompt[i]).toUpperCase();
+        if (answer === "") {
+          console.log('\x1b[31m' + "not enterd!!!" + '\x1b[0m');
+        } else if (answer === "C"||answer === "R") {
+          answer = "city";
+          check =false;
+        }
+        else {
+          console.log('only can answer "R" for rural or "C" for City');
+        };
+      }
+      
+      case 6:
+      while (check === true) {
+        answer= Number(prompt(answerPrompt[i]));
+
+        if (answer === "") {
+             console.log('\x1b[31m' + "No age is enterd!" + '\x1b[0m');
+        }else if (answer < 18) {
+               console.log('\x1b[31m' + "you are to jong to pertisapate, please visit use when you are 18 ore older" + '\x1b[0m');
+             } else if (answer> 99) {
+          console.log('\x1b[31m' + "you are to old to pertisapate, please enter 99 or less" + '\x1b[0m');
+            }
+          else if (answer > 18|| answer < 99) {
+            check =false;
+           }
+           else {
+               console.log('\x1b[31m' + "you can only alare between 18 and 99" + '\x1b[0m');
+             }
+      }
+      case 7:
+      while (check === true) {
+        answer= Number(prompt(answerPrompt[i]));
+
+        if (answer === "") {
+             console.log('\x1b[31m' + "No age is enterd!" + '\x1b[0m');
+        }else if (answer < answers[6]) {
+               console.log('\x1b[31m' + `you are to jong to pertisapate, please visit use when you are $answers[6] ore older` + '\x1b[0m');
+             } else if (answer> 99) {
+          console.log('\x1b[31m' + "you are to old to pertisapate, please visit use when you are 99 ore below" + '\x1b[0m');
+              
+            }
+          else if (answer > answers[6] || answer < 99) {
+            check =false;
+           }
+           else {
+              
+             }
+      }
+    default:
+
   }
-}
 
-while (check === true) {
-  console.log("What is your lastname?");
-  lastNameAnsewer = prompt(
-    "\u001b[36m" +
-      "answar only with a-Z minimum 3 and maximum 10 characters:" +
-      "\u001b[0m"
-  );
-  if (lastNameAnsewer === "") {
-    console.log("\x1b[31m" + "No name enterd!" + "\x1b[0m");
-  } else if (lastNameAnsewer.length < 3) {
-    console.log("\x1b[31m" + "name is to short!" + "\x1b[0m");
-  } else if (lastNameAnsewer.length > 10) {
-    console.log("name is to lang!");
-  } else if (!/^[a-zA-Z ]+$/.test(lastNameAnsewer)) {
-    console.log("\x1b[31m" + "name can only contain a-z" + "\x1b[0m");
-  } else {
-    break;
+
+  answers.push(answer);
+    i++;
+  
   }
-}
 
-while (check === true) {
-  console.log("How old are you?");
-  ageAnsewer = Number(
-    prompt("\u001b[36m" + "answar only from 18 till 99:" + "\u001b[0m")
-  );
-  if (ageAnsewer === "") {
-    console.log("\x1b[31m" + "No age is enterd!" + "\x1b[0m");
-  } else if (ageAnsewer < 18) {
-    console.log(
-      "\x1b[31m" +
-        "you are to jong to pertisapate, please visit use when you are 18 ore older" +
-        "\x1b[0m"
-    );
-  } else if (ageAnsewer < 99) {
-    break;
-  } else {
-    console.log(
-      "\x1b[31m" + "you can only alare between 18 and 99" + "\x1b[0m"
-    );
-  }
-}
+console.log(`\n\x1b[35mYour profile:  \x1b[0m\nI am \u001b[36m${answers[0]} ${answers[1]}\x1b[0m and I am \u001b[36m${answers[2]}\x1b[0m years old. I identify myself as a \u001b[36m${answers[3]}\x1b[0m and am interested in \u001b[36m${answers[4]}\x1b[0m. My current location is: \u001b[36m${answers[5]}\x1b[0m. And I am looking for a parter who is between \u001b[36m${answers[6]}\x1b[0m and \u001b[36m${answers[7]}\x1b[0m years old.\n`);
 
-while (check === true) {
-  console.log("What gender are you?");
-  genderAnswer = prompt(
-    "\u001b[36m" +
-      'answar "M" for male, "F" for female and "X" for both:' +
-      "\u001b[0m"
-  ).toUpperCase();
-  if (genderAnswer === "") {
-    console.log("\x1b[31m" + "No gender is enterd!" + "\x1b[0m");
-  } else if (genderAnswer === "M") {
-    break;
-  } else if (genderAnswer === "F") {
-    break;
-  } else if (genderAnswer === "X") {
-    break;
-  } else {
-    console.log("\x1b[31m" + 'you can only ansar "M", "F" or "X"' + "\x1b[0m");
-  }
-}
+console.log(`\x1b[35mThe amount of people using the Winc Winc app (at this moment): ${mockData.length}. Based on your profile we have matched you with the following people:\x1b[0m`);
 
-while (check === true) {
-  console.log("What gender are you interested in?");
-  genderIntrestAnswer = prompt(
-    "\u001b[36m" +
-      'answar "M" for male, "F" for female and "X" for both:' +
-      "\u001b[0m"
-  ).toUpperCase();
-  if (genderIntrestAnswer === "") {
-    console.log("\x1b[31m" + "No gender is enterd!" + "\x1b[0m");
-  } else if (genderIntrestAnswer === "M") {
-    break;
-  } else if (genderIntrestAnswer === "F") {
-    break;
-  } else if (genderIntrestAnswer === "X") {
-    break;
-  } else if (genderIntrestAnswer === "B") {
-    break;
-  } else {
-    console.log(
-      "\x1b[31m" + 'you can only ansar "M", "F", "B" or "X"' + "\x1b[0m"
-    );
-  }
-}
 
-while (check === true) {
-  console.log("What is the minimum age you are looking for?");
-  const lol = Number(
-    prompt("\u001b[36m" + "answar only from 18 till 98:" + "\u001b[0m")
-  );
-  ageMinimumAnsewer = lol;
-  if (ageMinimumAnsewer === "") {
-    console.log("\x1b[31m" + "No age is enterd!" + "\x1b[0m");
-  } else if (ageMinimumAnsewer < 18) {
-    console.log(
-      "\x1b[31m" + "You should not be looking for underage date" + "\x1b[0m"
-    );
-  } else if (ageMinimumAnsewer < 99) {
-    break;
-  } else {
-    console.log("you can only alare between 18 and 99");
-  }
-}
-if (ageMinimumAnsewer === 89) {
-  console.log(
-    "\x1b[34m" +
-      "we will try to match you with someone between 89 and 99 years old" +
-      "\x1b[0m"
-  );
-} else {
-  while (check === true) {
-    console.log("What is the maximum age you are looking for?");
-    ageMaximumAnsewer = Number(
-      prompt(
-        "\x1b[32m" +
-          `answar only from ${ageMinimumAnsewer + 1}  till 99:` +
-          "\x1b[0m"
-      )
-    );
-    if (ageMaximumAnsewer === "") {
-      console.log("\x1b[31m" + "No age is enterd!" + "\x1b[0m");
-    } else if (ageMaximumAnsewer < ageMinimumAnsewer + 1) {
-      console.log(
-        "\x1b[31m" +
-          `You can only anser between ${ageMinimumAnsewer + 1} and 99` +
-          "\x1b[0m"
-      );
-    } else if (ageMaximumAnsewer < 99) {
-      break;
-    } else {
-      console.log("\x1b[31m" + `you can only alare between and 99` + "\x1b[0m");
-    }
-  }
-}
 
-while (check === true) {
-  console.log("What is your location?");
-  locationAnsewer = prompt(
-    "\u001b[36m" + 'answar "R" for rural or "C" for City:' + "\u001b[0m"
-  ).toUpperCase();
-  if (locationAnsewer === "") {
-    console.log("\x1b[31m" + "not enterd!!!" + "\x1b[0m");
-  } else if ((locationAnsewer = "C")) {
-    locationAnsewer = "city";
-    break;
-  } else if ((locationAnsewer = "R")) {
-    locationAnsewer = "rural";
-    break;
-  } else {
-    console.log('only can answer "R" for rural or "C" for City');
-  }
-}
-
-console.log(
-  `\nYour profile: \nI am ${firstNameAnsewer} ${lastNameAnsewer} and I am ${ageAnsewer} years old. I identify myself as a ${genderAnswer} and am interested in ${genderIntrestAnswer}. My current location is: ${locationAnsewerText}. And I am looking for a parter who is between ${ageMinimumAnsewer} and ${ageMaximumAnsewer} years old.\n`
-);
-
-console.log(
-  `The amount of people using the Winc Winc app (at this moment): ${mockData.length}. Based on your profile we have matched you with the following people:\n`
-);
 
 let counter = 0;
 
+
 for (let i = 0; i < mockData.length; i++) {
-  if (
-    ageAnsewer >= mockData[i].min_age_interest &&
-    ageAnsewer <= mockData[i].max_age_interest
-  ) {
-    if (
-      mockData[i].min_age_interest <= ageAnsewer &&
-      mockData[i].max_age_interest >= ageAnsewer
-    ) {
-      if (locationAnsewer == mockData[i].location) {
-        if (
-          genderIntrestAnswer == mockData[i].gender ||
-          (genderIntrestAnswer == "B" &&
-            ["M", "F"].includes(mockData[i].gender))
-        ) {
-          console.log(
-            `Hi! I am ${mockData[i].first_name} ${mockData[i].last_name} and I am ${mockData[i].age} years old. I identify myself as a ${mockData[i].gender} and am interested in ${mockData[i].gender_interest}. My current location is: ${mockData[i].location}. And I am looking for a parter who is between ${mockData[i].min_age_interest} and ${mockData[i].max_age_interest} years old.\n`
-          );
-          counter++;
+  if (answers[2] >= mockData[i].min_age_interest && answers[2] <= mockData[i].max_age_interest) {
+    if (mockData[i].age >= answers[6] && mockData[i].age <= answers[7]) {
+      if (answers[5] == mockData[i].location) {
+        if ((answers[4] == mockData[i].gender) || (answers[4] == "B") && (["M", "F"].includes(mockData[i].gender))) {
+          if((answers[3]==mockData[i].gender_interest)|| (answers[3] == "B") && (["M", "F"].includes(mockData[i].gender_interest))){
+          
+        
+          
+            
+            console.log(`Hi! I am \u001b[36m${mockData[i].first_name} ${mockData[i].last_name}\x1b[0m and I am \u001b[36m${mockData[i].age}\x1b[0m years old. I identify myself as a \u001b[36m${mockData[i].gender}\x1b[0m and am interested in \u001b[36m${mockData[i].gender_interest}\x1b[0m. My current location is: \u001b[36m${mockData[i].location}\x1b[0m. And I am looking for a parter who is between \u001b[36m${mockData[i].min_age_interest}\x1b[0m and \u001b[36m${mockData[i].max_age_interest}\x1b[0m years old.\n`);
+            counter++;
+        
+          }
+          }
         }
       }
     }
   }
-}
 
-console.log(`In total you have ${counter} matches!`);
-
-console.log(mockData[20].gender);
+console.log(`In total you have \x1b[35m${counter}\x1b[0m matche(s)!`);
